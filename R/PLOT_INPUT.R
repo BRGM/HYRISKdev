@@ -9,7 +9,7 @@ NL=10
 ntot=length(input)
 ncol=ceiling(sqrt(ntot))
 nrow=ceiling(ntot/ncol)
-dev.new()
+#dev.new()
 par(mfrow=c(nrow,ncol),cex=1.1,mex=0.75,mar=c(4.5,4.5,2,2))
 
 ndiscrprob=1000
