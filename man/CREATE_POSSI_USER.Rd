@@ -4,137 +4,50 @@
 Function to create a user-defined possibility
 }
 \description{
-Function to create a user-defined possibility
+Function to create a user-defined possibility by following two options from: (1) a set of confidence intervals; (2) a mean and standard deviation value using the inquality of Bienayme-Chebychev.
 }
 \usage{
-CREATE_POSSI_USER(input, DISCR=1000)
+CREATE_POSSI_USER(listX,listL,type="confidence",DISCR=1000)
 }
 \arguments{
-  \item{input}{
-List of inputs derived from the \emph{CREATE_INPUT()} function.
-}
-  \item{DISCR}{
-Number of discretisations to represent the possibility distribution. By default, it is set at 1000.
-}
-}
-\value{
-List of inputs updated with additional arguments 
-\itemize{
-	\item If input$type="proba" or input$type="impr proba", new arguments \emph{qfun} and \emph{rfun} corresponding to the quantile and random sampling functions.
-	\item If input$type="possi", new argument \emph{fuzzy} corresponding to the output provided by \emph{fuzzy_trapezoid_gset()} or \emph{fuzzy_triangular_gset()} of the package \emph{sets}.
-}
+  \item{listX}{
+	  \itemize{
+		\item If type="confidence", listX corresponds to the list of endpoints of the considered intervals. For instance, c(0,1,2,3) corresponds to intervals [0,1], [1,2] and [2,3].
+		\item If type="bracket", listX corresponds to mean value.
+	  }  
+  }
+  \item{ListY}{
+	  \itemize{
+		\item If type="confidence", lisYX corresponds to the list of possibility degrees. For instance, c(0.2,1,0.05) corresponds to 3 intervals, the degrees 0.2, 1.0 and 0.05.
+		\item If type="bracket", listY corresponds to a vector of two values: the standard deviation and the limit of truncation (expressed in number of standard deviation). For instance, c(0.1,3) corresponds to a standard deviation of 0.1 and a limit of 3 times the standard deviation. 
+	  }  
+  }
 }
 
 \details{
 \itemize{
-	\item Details of the theory and example 1 in Dubois & Guyonnet (2011), available at:
-		\url{https://hal-brgm.archives-ouvertes.fr/file/index/docid/578821/filename/Uncertainties_RA_09_l_dg.pdf}
-	\item Details on the representation via imprecise probability distributions and example 2 in Sch\"obi & Sudret (2016), available at:
-		\url{https://arxiv.org/pdf/1608.05565.pdf}
+	\item Details on the approach using the confidence interval, see Baudrit et al. 2006.
+	\item Details on the approach using the inequality of Bienayme-Chebychev, see Sect. 3.3 of \url{https://www.irit.fr/~Henri.Prade/Papers/DFoulMauP.pdf}
 }
-}
-\seealso{
-\code{\link{CREATE_INPUT}}
 }
 \examples{
 #################################################
-#### EXAMPLE 1 of Dubois & Guyonnet (2011)
-#### Probability and Possibility distributions
+### user-defined
+### mode: "confidence"
+### user information: series of intervals with associated degree of possibilites
 #################################################
-ninput<-5 #Number of input parameters
-input<-vector(mode="list", length=ninput) # Initialisation
-input[[1]]=CREATE_INPUT(
-		name="UER",
-		type="possi",
-		distr="triangle",
-		param=c(2.e-2, 5.7e-2, 1.e-1),
-		monoton="incr"
-		)
-input[[2]]=CREATE_INPUT(
-		name="EF",
-		type="possi",
-		distr="triangle",
-		param=c(200,250,350),
-		monoton="incr"
-		)
-input[[3]]=CREATE_INPUT(
-		name="I",
-		type="possi",
-		distr="triangle",
-		param=c(1,1.5,2.5),
-		monoton="incr"
-		)
-input[[4]]=CREATE_INPUT(
-		name="C",
-		type="proba",
-		distr="triangle",
-		param=c(5e-3,20e-3,10e-3)
-		)
-input[[5]]=CREATE_INPUT(
-		name="ED",
-		type="proba",
-		distr="triangle",
-		param=c(10,50,30)
-		)
-####CREATION OF THE DISTRIBUTIONS ASSOCIATED TO THE PARAMETERS
-input=CREATE_DISTR(input)
-####PLOT INPUTS
-PLOT_INPUT(input)
+listX<-c(0.3,0.52,0.98,1.5,2,2.5)## liste des bornes des intervalles de confiance
+listL<-c(0.33,1,0.2,0.05,0.05) ## liste des niveaux de possibilité (nbre = nbre_listX-1)
+a<-CREATE_POSSI_USER(listX,listL)
+plot(a)
+
 #################################################
-#### EXAMPLE 2 of Sch\"obi & Sudret (2016)
-#### Imprecise Probability distributions
+### mode: "bracket"
+### inegalite de Bienayme-Chebychev; voir: sect. 3.3 de https://www.irit.fr/~Henri.Prade/Papers/DFoulMauP.pdf
+### user information: mean, standard deviation and limit of truncation
 #################################################
-ninput<-6 #Number of input parameters
-input<-vector(mode="list", length=ninput) # Initialisation
-# Imprecise normal probability 
-# whose parameters are described by the 3rd and 5th parameters
-input[[1]]=CREATE_INPUT(
-		name="A",
-		type="impr proba",
-		distr="normal",
-		param=c(3,5),
-		monoton="dunno"
-		)
-# Imprecise normal probability
-# whose parameters are described by the 4th and 6th parameters
-input[[2]]=CREATE_INPUT(
-		name="B",
-		type="impr proba",
-		distr="normal",
-		param=c(4,6),
-		monoton="dunno"
-		)
-# imprecise paramters of afore-described probability distribution
-# mean of input number 1 as an interval
-input[[3]]=CREATE_INPUT(
-		name="mu_A",
-		type="possi",
-		distr="interval",
-		param=c(-0.5,0.5)
-		)
-# mean of input number 2 as an interval
-input[[4]]=CREATE_INPUT(
-		name="mu_B",
-		type="possi",
-		distr="interval",
-		param=c(-0.5,0.5)
-		)
-# standard deviation of input number 1  as an interval
-input[[5]]=CREATE_INPUT(
-		name="s_A",
-		type="possi",
-		distr="interval",
-		param=c(0.7,1)
-		)
-# standard deviation of input number 2  as an interval
-input[[6]]=CREATE_INPUT(
-		name="s_B",
-		type="possi",
-		distr="interval",
-		param=c(0.7,1)
-		)
-####CREATION OF THE DISTRIBUTIONS ASSOCIATED TO THE PARAMETERS
-input=CREATE_DISTR(input)
-####PLOT INPUTS
-PLOT_INPUT(input)
+listX<-c(0.5) ## mean
+listL<-c(0.1,3) ## standard dev. + limit of truncation (in number of standard dev.)
+b<-CREATE_POSSI_USER(listX,listL,type="bracket")
+plot(b)
 }
