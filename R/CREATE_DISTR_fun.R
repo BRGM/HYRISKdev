@@ -14,6 +14,9 @@ if (X$type=="possi"){
 	} else if (X$distr=="trapeze"){
 		sets_options("universe", seq(from = X$param[1],to = X$param[length(X$param)], by = (X$param[length(X$param)]-X$param[1])/DISCR))
 		X$fuzzy<-fuzzy_trapezoid_gset(corners = c(X$param[1], X$param[2], X$param[3],X$param[4]), height = c(1))
+	} else if (X$distr=="user"){
+		sets_options("universe", seq(from = range(X$possi_user)[1],to =range(X$possi_user)[2], by = (range(X$possi_user)[2]-range(X$possi_user)[1])/DISCR))
+		X$fuzzy<-X$possi_user
 	}
 } else if (X$type=="proba" | X$type=="impr proba"){
 	if (X$distr=="normal"){
