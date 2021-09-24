@@ -8,7 +8,7 @@ if (mode=="IRS"){
 d=length(input)
 ##rr<-matrix(runif(N*d,0,1-corr),ncol=d)
 rr<-lhsDesign(N,d)$design*(1-corr)
-Z0<-pbapply(rr,1,PROPAG_fun,N,input,FUN,choice_opt,param_opt)
+Z0<-apply(rr,1,PROPAG_fun,N,input,FUN,choice_opt,param_opt)
 
 }
 
@@ -36,7 +36,7 @@ for (i in 1:d){
 if (allpossi==d){
 	rr=matrix(rep(seq(0,1-corr,length=N*NL),d),ncol=d)
 }
-Z0<-pbapply(rr,1,PROPAG_fun,N,input,FUN,choice_opt,param_opt)
+Z0<-apply(rr,1,PROPAG_fun,N,input,FUN,choice_opt,param_opt)
 
 }
 
