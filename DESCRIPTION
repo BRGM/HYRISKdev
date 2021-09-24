@@ -9,7 +9,7 @@ Description: Developement version. Methods for addressing uncertainty in risk as
 License: GPL-3
 Depends: R (>= 3.2.0)
 Imports: datasets,utils,grDevices,graphics,stats,sets, pbapply, reliaR,
-        kerdiest, triangle, rgenoud
+        kerdiest, triangle, rgenoud, DiceDesign
 NeedsCompilation: no
 Packaged: 2017-04-04 07:38:01 UTC; boulahya
 Repository: CRAN
