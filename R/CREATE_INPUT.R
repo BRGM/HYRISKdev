@@ -1,5 +1,5 @@
 CREATE_INPUT <-
-function(name,type,distr=NULL,param,monoton="dunno",quser=NULL,ruser=NULL){
+function(name,type,distr=NULL,param,monoton="dunno",quser=NULL,ruser=NULL,possi_user=NULL){
 
 X=list(
 name=name, #variable name
@@ -9,6 +9,10 @@ param=param, #for variables of types "possi" "proba" or "fixed, fixed parameters
 monoton=monoton #variation of the model with respect to the input parameters. increasing: "incr", decreasing: "decr", not monotonic or not known: "dunno". Useless for subvariables of imprecise probabilistic variables
 )
 
+if (is.null(possi_user)==FALSE){
+	X$possi_user=possi_user
+}
+	
 if (is.null(quser)==FALSE & is.null(ruser)==FALSE){
 	if (type=="proba"|type=="impr proba"){
 		X$qfun=quser
