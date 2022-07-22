@@ -6,11 +6,11 @@ Function to define the input variables  (imprecise, random or fixed).
 \description{
 Function to define the input variables  (imprecise, random or fixed). Five types are accounted for: 
 	\itemize{
-		\item Probability distribution (either pre-defined (Normal, log-Normal, uniform, triangular, Beta, Gumbel) or user-defined).
+		\item Probability distribution (either pre-defined (Normal, log-Normal, uniform, triangular, Beta) or user-defined).
 		\item Possibility distribution (either trapezoidal or triangular).
 		\item Intervals.
 		\item Fixed scalar value.
-		\item Imprecise probability distributions (Normal, log-Normal, uniform, triangular, Beta, Gumbel) with parameters 
+		\item Imprecise probability distributions (Normal, log-Normal, uniform, triangular, Beta) with parameters 
 		represented by by intervals, possibility distributions, fixed scalar values, or probability distributions.
 	}
 }
@@ -34,7 +34,7 @@ CREATE_INPUT(name, type, distr = NULL, param,
   \item{distr}{
 	String to specify the type of distribution: 
 	\itemize{
-	  	\item If type="proba" or type="impr proba", distr should be: "normal", "lognormal","uniform", "triangle", "beta", "gumbel","user". 
+	  	\item If type="proba" or type="impr proba", distr should be: "normal", "lognormal","uniform", "triangle", "beta","user". 
 	  	\item If type="possi", distr should be: "trapeze", "triangle", "interval".
 	}
 }
@@ -46,7 +46,6 @@ CREATE_INPUT(name, type, distr = NULL, param,
 		\item If type="proba" and distr="uniform", param should be a vector of two values. For example c(0,1) corresponds to a uniform distribution with support[0,1].
 		\item If type="proba" and distr="triangle", param should be a vector of three values. For example c(0,2,1) corresponds to a triangle distribution with apex=1 and support[0,2]. See help from package \emph{triangle}.
 		\item If type="proba" and distr="beta", param should be a vector of two values. For example c(1,1) corresponds to a beta distribution with parameters shape1 and shape2 equal to 1 (see help of qbeta in stats package).
-		\item If type="proba" and distr="gumbel", param should be a vector of two values. For example c(0,1) corresponds to a gumbel distribution with location=0 and scale parameter=1.
 		\item If type="possi" and distr="trapeze", param should be a vector of four values. For example c(0,1,2,3) corresponds to a possibility distribution with core=[1,2] and support=[0,3].
 		\item If type="possi" and distr="triangle", param should be a vector of three values. For example c(0,1,2) corresponds to a possibility distribution with core={1} and support=[0,2].
 		\item If type="possi" and distr="interval", param should be a vector of two values. For example c(0,1) corresponds to the interval [0,1].
