@@ -31,9 +31,6 @@ if (X$type=="possi"){
 	} else if (X$distr=="uniform"){
 		X$qfun=qunif
 		X$rfun=runif
-	} else if (X$distr=="gumbel"){
-		X$qfun=qgumbel
-		X$rfun=rgumbel
 	} else if (X$distr=="beta"){
 		X$qfun=qbeta
 		X$rfun=rbeta
