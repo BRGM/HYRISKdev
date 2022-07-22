@@ -1,4 +1,4 @@
 #exportPattern("^[[:alpha:]]+")
 export(PLOT_CDF,CREATE_DISTR,PROPAG,SENSI_PINCHING,CREATE_INPUT,CREATE_POSSI_USER,QUAN_INTERVAL,SUMMARY_1CDF,PLOT_INPUT,UNCERTAINTY,PINCHING_fun,PROBA_INTERVAL)
-import(datasets,utils,grDevices,graphics,stats,sets, pbapply, reliaR, kerdiest, triangle, rgenoud, DiceDesign)
+import(datasets,utils,grDevices,graphics,stats,sets, pbapply, kerdiest, triangle, rgenoud, DiceDesign)
 
