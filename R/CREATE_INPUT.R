@@ -50,10 +50,6 @@ if (distr=="beta" & length(param)!=2){
 	warning("Number of parameters inconsistent with a triangle probability distribution")
 }
 
-if (distr=="gumbel" & length(param)!=2){
-	warning("Number of parameters inconsistent with a triangle probability distribution")
-}
-
 }
 
 if (type=="fixed" & length(param)!=1){
