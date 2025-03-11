@@ -9,7 +9,7 @@ install_github("BRGM/HYRISKdev")
 ```
 ## Tutorial
 
-In the following, you will find the details to use the package using an example of dyke stability analysis by [@Ferson06].
+In the following, you will find the details to use the package using an example of dyke stability analysis by [Ferson and Tucker 2006](https://doi.org/10.2172/886899).
 
 ### Initialisation
 ```{r}
@@ -17,7 +17,7 @@ library(HYRISK)
 ```
 
 ### Description of the case
-The case study is focused on the stability analysis of a dyke described by [@Ferson06]. The dyke has revetments made of masonry blocks subject to wave action as depicted schematically in the Figure below. The stability is estimated as the difference between the dike strength minus the stress acting on it as $Z = strength - stress =\Delta.D -\frac{H.\tan(\alpha)}{\cos(\alpha).M.s^{0.5}}$ where $\Delta$ is the relative density of the revetment blocks, $D$ is their thickness, $\alpha$ is the slope of the revetment. The wave characteristics are the significant wave height $H$, and the offshore peak wave steepness $s$. The factor $M$ reflects the risk analyst$^{'}$s vision on the uncertainty related to the model itself, i.e. its ability to reproduce reality. 
+The dyke has revetments made of masonry blocks subject to wave action as depicted schematically in the Figure below. The stability is estimated as the difference between the dike strength minus the stress acting on it as $Z = strength - stress =\Delta.D -\frac{H.\tan(\alpha)}{\cos(\alpha).M.s^{0.5}}$ where $\Delta$ is the relative density of the revetment blocks, $D$ is their thickness, $\alpha$ is the slope of the revetment. The wave characteristics are the significant wave height $H$, and the offshore peak wave steepness $s$. The factor $M$ reflects the risk analyst$^{'}$s vision on the uncertainty related to the model itself, i.e. its ability to reproduce reality. 
 
 If $Z\ge0$, the dike is stable (the strength is greater than the stress); unstable otherwise. 
 The study is focused on the estimate of the probability for $Z$ to become negative, which is considered a measure of the dike reliability.
@@ -123,10 +123,10 @@ Z0_IRS<-PROPAG(N=1000,input,FUN,choice_opt,param_opt,mode="IRS")
 #### Post-processing of the Results
 
 The output of the propagation procedure then takes the form of N random intervals of the form $[\underline{Z}_k,\overline{Z}_k]$, with $k=1,...,N$. 
-This information can be summarized in the form of a pair of upper and lower cumulative probability distributions (CDFs), in the form of a p-box which is closely related to upper and lower probabilities of Dempster [@Dempster67], and belief functions of Shafer [@Shafer76] as proposed by [@Baudrit07]. The following code provides the output of the propagation phase using the *PLOT_CDF* function.
+This information can be summarized in the form of a pair of upper and lower cumulative probability distributions (CDFs), in the form of a p-box which is closely related to upper and lower probabilities of Dempster, and belief functions of Shafer as proposed by [Baudrit et al. 2007](https://doi.org/10.1016/j.ijar.2006.07.001). The following code provides the output of the propagation phase using the *PLOT_CDF* function.
 In some situations, the analysts may be more comfortable in deriving a unique probability distribution. 
 In order to support decision-making with a less extreme indicator than using either probability bounds, 
-[@Dubois11] proposed to weight the bounds by an index $w$, which reflects the attitude of the decision-maker to risk (i.e. the degree of risk aversion) so that the resulting distribution $F$ holds as $F^{-1}(x) = w.\overline{F}^{-1}(x)+(1-w).\underline{F}^{-1}(x)$ where $x$ is the quantile level ranging between 0 and 1. 
+[Dubois and Guyonnet 2011](https://doi.org/10.1080/03081079.2010.506179). proposed to weight the bounds by an index $w$, which reflects the attitude of the decision-maker to risk (i.e. the degree of risk aversion) so that the resulting distribution $F$ holds as $F^{-1}(x) = w.\overline{F}^{-1}(x)+(1-w).\underline{F}^{-1}(x)$ where $x$ is the quantile level ranging between 0 and 1. 
 This can be done using the *SUMMARY_1CDF* function as follows using two aversion weight values of respectively 30 and 50$\%$.
 
 ```{r}
@@ -173,7 +173,7 @@ print(paste("Probability sup: ",round(prob$Pupp,2)))
 
 ### Step 4: sensitivity analysis
 
-The last step focuses on sensitivity analysis. The approach, based on the pinching method of [@Ferson06], is implemented using the *PINCHING_fun* and *SENSI_PINCHING* functions. In the following, we analyse the sensitivity to the 8th input parameter.
+The last step focuses on sensitivity analysis. The approach, based on the pinching method of [Ferson and Tucker 2006](https://doi.org/10.2172/886899), is implemented using the *PINCHING_fun* and *SENSI_PINCHING* functions. In the following, we analyse the sensitivity to the 8th input parameter.
 
 ```{r}
 #################################################
