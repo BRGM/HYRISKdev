@@ -22,8 +22,6 @@ The dyke has revetments made of masonry blocks subject to wave action as depicte
 If $Z\ge0$, the dike is stable (the strength is greater than the stress); unstable otherwise. 
 The study is focused on the estimate of the probability for $Z$ to become negative, which is considered a measure of the dike reliability.
 
-![A schematic overview of the dyke.](images/dyke.png)
-
 The assessment function is coded as follows:
 ```{r}
 FUN<-function(X){
