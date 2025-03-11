@@ -1,19 +1,22 @@
-# HYRISK: Hybrid Methods for Addressing Uncertainty in RISK Assessments  
+# Hybrid Methods for Addressing Uncertainty in RISK Assessments  
 This is a developement version of the R package HYRISK.
 
+## Installation
 For installation, use follwoing commands
 ```{r}
 library(devtools)
 install_github("BRGM/HYRISKdev")
 ```
+## Tutorial
 
+In the following, you will find the details to use the package using an example of dyke stability analysis by [@Ferson06].
+
+### Initialisation
 ```{r}
 library(HYRISK)
-
 ```
 
-## Description of the case
-
+### Description of the case
 The case study is focused on the stability analysis of a dyke described by [@Ferson06]. The dyke has revetments made of masonry blocks subject to wave action as depicted schematically in the Figure below. The stability is estimated as the difference between the dike strength minus the stress acting on it as $Z = strength - stress =\Delta.D -\frac{H.\tan(\alpha)}{\cos(\alpha).M.s^{0.5}}$ where $\Delta$ is the relative density of the revetment blocks, $D$ is their thickness, $\alpha$ is the slope of the revetment. The wave characteristics are the significant wave height $H$, and the offshore peak wave steepness $s$. The factor $M$ reflects the risk analyst$^{'}$s vision on the uncertainty related to the model itself, i.e. its ability to reproduce reality. 
 
 If $Z\ge0$, the dike is stable (the strength is greater than the stress); unstable otherwise. 
@@ -34,7 +37,7 @@ return(delta*D-(H*tan(alpha)/(cos(alpha)*M*sqrt(s))))
 }
 
 ```
-## Step 1: uncertainty representation
+### Step 1: uncertainty representation
 
 The first step focuses on uncertainty representation. 
 It aims at selecting the most appropriate mathematical tool to represent uncertainty on the considered parameter. 
@@ -102,11 +105,11 @@ A visualisation function *PLOT_INPUT* has also been implemented to handle the di
 PLOT_INPUT(input)
 ```
 
-## Step 2: uncertainty propagation
+### Step 2: uncertainty propagation
 
 The second step aims at conducting uncertainty propagation, i.e. evaluating the impact of the uncertainty pervading the input on the outcome of the risk assessment model. To do so, the main function is *PROPAG*, which implements the Monte-Carlo-based algorithm of [@Baudrit07], named *IRS* (Independent Random Sampling), for jointly handling possibility and probability distributions and the algorithm of [@Baudrit08] for jointly handling possibility, probability distributions and p-boxes. 
 
-### IRS
+#### IRS
 ```{r}
 #OPTIMZATION CHOICES
 choice_opt="L-BFGS-B_MULTI" ## quasiNewton with multistart
@@ -117,7 +120,7 @@ Z0_IRS<-PROPAG(N=1000,input,FUN,choice_opt,param_opt,mode="IRS")
 
 ```
 
-### Post-processing of the Results
+#### Post-processing of the Results
 
 The output of the propagation procedure then takes the form of N random intervals of the form $[\underline{Z}_k,\overline{Z}_k]$, with $k=1,...,N$. 
 This information can be summarized in the form of a pair of upper and lower cumulative probability distributions (CDFs), in the form of a p-box which is closely related to upper and lower probabilities of Dempster [@Dempster67], and belief functions of Shafer [@Shafer76] as proposed by [@Baudrit07]. The following code provides the output of the propagation phase using the *PLOT_CDF* function.
@@ -168,7 +171,7 @@ print(paste("Probability sup: ",round(prob$Pupp,2)))
 ```
 
 
-## Step 4: sensitivity analysis
+### Step 4: sensitivity analysis
 
 The last step focuses on sensitivity analysis. The approach, based on the pinching method of [@Ferson06], is implemented using the *PINCHING_fun* and *SENSI_PINCHING* functions. In the following, we analyse the sensitivity to the 8th input parameter.
 
