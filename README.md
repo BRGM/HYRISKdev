@@ -1,8 +1,8 @@
 # Hybrid Methods for Addressing Uncertainty in RISK Assessments  
-This is a developement version of the R package HYRISK.
+This is a developement version of the R package HYRISK based on [Guyonnet et al., 2003](https://doi.org/10.1061/(ASCE)0733-9372(2003)129:1(68)) and [Baudrit et al., 2007](https://doi.org/10.1016/j.ijar.2006.07.001).
 
 ## Installation
-For installation, use follwoing commands
+For installation, use following commands:
 ```{r}
 library(devtools)
 install_github("BRGM/HYRISKdev")
@@ -13,7 +13,7 @@ In the following, you will find the details to use the package using an example 
 
 ### Initialisation
 ```{r}
-library(HYRISK)
+library(HYRISKdev)
 ```
 
 ### Description of the case
